@@ -9,7 +9,8 @@ import json
 import os
 
 # Path to the file where tasks are stored
-TASKS_FILE = 'tasks.json'
+TASKS_FILE = "tasks.json"
+
 
 def load_tasks():
     """
@@ -20,10 +21,11 @@ def load_tasks():
         'name' (str) and 'completed' (bool).
     """
     if os.path.exists(TASKS_FILE):
-        with open(TASKS_FILE, 'r') as file:
+        with open(TASKS_FILE, "r") as file:
             return json.load(file)
     else:
         return []
+
 
 def save_tasks(tasks):
     """
@@ -32,8 +34,9 @@ def save_tasks(tasks):
     Args:
         tasks (list): A list of tasks to save.
     """
-    with open(TASKS_FILE, 'w') as file:
+    with open(TASKS_FILE, "w") as file:
         json.dump(tasks, file, indent=4)
+
 
 def add_task(tasks, task_name):
     """
@@ -46,13 +49,11 @@ def add_task(tasks, task_name):
     Effects:
         Adds a new task to the list and saves it.
     """
-    task = {
-        'name': task_name,
-        'completed': False
-    }
+    task = {"name": task_name, "completed": False}
     tasks.append(task)
     save_tasks(tasks)
     print(f"Task '{task_name}' added.")
+
 
 def list_tasks(tasks):
     """
@@ -69,8 +70,9 @@ def list_tasks(tasks):
     else:
         print("\nTask List:")
         for index, task in enumerate(tasks, 1):
-            status = "Completed" if task['completed'] else "Not completed"
+            status = "Completed" if task["completed"] else "Not completed"
             print(f"{index}. {task['name']} - {status}")
+
 
 def complete_task(tasks, task_index):
     """
@@ -87,11 +89,12 @@ def complete_task(tasks, task_index):
         IndexError: If the index is out of bounds.
     """
     if task_index > 0 and task_index <= len(tasks):
-        tasks[task_index - 1]['completed'] = True
+        tasks[task_index - 1]["completed"] = True
         save_tasks(tasks)
         print(f"Task {task_index} marked as completed.")
     else:
         print("Invalid task number.")
+
 
 def remove_task(tasks, task_index):
     """
@@ -108,11 +111,12 @@ def remove_task(tasks, task_index):
         IndexError: If the index is out of bounds.
     """
     if task_index > 0 and task_index <= len(tasks):
-        task_name = tasks.pop(task_index - 1)['name']
+        task_name = tasks.pop(task_index - 1)["name"]
         save_tasks(tasks)
         print(f"Task '{task_name}' removed.")
     else:
         print("Invalid task number.")
+
 
 def main():
     """
@@ -130,25 +134,28 @@ def main():
         print("3. Mark a task as completed")
         print("4. Remove a task")
         print("5. Exit")
-        
+
         choice = input("Choose an option (1-5): ")
-        
-        if choice == '1':
+
+        if choice == "1":
             task_name = input("Enter the name of the task: ")
             add_task(tasks, task_name)
-        elif choice == '2':
+        elif choice == "2":
             list_tasks(tasks)
-        elif choice == '3':
-            task_index = int(input("Enter the number of the task to mark as completed: "))
+        elif choice == "3":
+            task_index = int(
+                input("Enter the number of the task to mark as completed: ")
+            )
             complete_task(tasks, task_index)
-        elif choice == '4':
+        elif choice == "4":
             task_index = int(input("Enter the number of the task to remove: "))
             remove_task(tasks, task_index)
-        elif choice == '5':
+        elif choice == "5":
             print("Goodbye!")
             break
         else:
             print("Invalid choice. Please enter a number between 1 and 5.")
+
 
 if __name__ == "__main__":
     main()
