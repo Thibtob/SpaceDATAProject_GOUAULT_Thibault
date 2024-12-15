@@ -1,0 +1,18 @@
+python\_project\_template package
+=================================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   python_project_template.dummy
+
+Module contents
+---------------
+
+.. automodule:: python_project_template
+   :members:
+   :undoc-members:
+   :show-inheritance:
