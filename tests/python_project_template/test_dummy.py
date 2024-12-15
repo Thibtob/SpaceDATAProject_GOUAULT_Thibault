@@ -11,11 +11,10 @@ from python_project_template.dummy import (
     complete_task,
     remove_task,
     load_tasks,
+    TASKS_FILE,
     save_tasks,
     main,
 )
-
-TASKS_FILE = "tasks.json"
 
 
 def test_dummy() -> None:
