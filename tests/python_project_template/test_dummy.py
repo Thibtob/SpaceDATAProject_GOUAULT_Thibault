@@ -187,7 +187,27 @@ def test_complete_task_already_completed(mock_save, mock_tasks):
 )
 
 
-# Test de main et save tasks(avec un scénario complet)
+# Test de save_tasks
+@patch("builtins.open", new_callable=mock_open)
+@patch("json.dump")
+def test_save_tasks(mock_json_dump, mock_file):
+    # Exemple de tâches
+    mock_tasks = [
+        {"name": "Task 1", "completed": False},
+        {"name": "Task 2", "completed": True},
+    ]
+
+    # Appel de la fonction save_tasks
+    save_tasks(mock_tasks)
+
+    # Vérifier que le fichier est bien ouvert en mode écriture
+    mock_file.assert_called_once_with(TASKS_FILE, "w")
+
+    # Vérifier que json.dump a été appelé avec les bonnes données et le bon fichier
+    mock_json_dump.assert_called_once_with(mock_tasks, mock_file(), indent=4)
+
+
+# Test de main (avec un scénario complet)
 class TestTaskManagement(unittest.TestCase):
     @mock.patch("python_project_template.dummy.save_tasks")
     @mock.patch("python_project_template.dummy.load_tasks")
@@ -195,26 +215,6 @@ class TestTaskManagement(unittest.TestCase):
     @mock.patch(
         "builtins.input", side_effect=["1", "New Task", "5"]
     )  # Simule l'entrée utilisateur
-    @patch("builtins.open", new_callable=mock_open)
-    @patch("json.dump")
-    def test_save_tasks(
-        self, mock_json_dump, mock_file
-    ):  # Ajouter `self` en premier argument
-        # Exemple de tâches
-        mock_tasks = [
-            {"name": "Task 1", "completed": False},
-            {"name": "Task 2", "completed": True},
-        ]
-
-        # Appel de la fonction save_tasks
-        save_tasks(mock_tasks)
-
-        # Vérifier que le fichier est bien ouvert en mode écriture
-        mock_file.assert_called_once_with(TASKS_FILE, "w")
-
-        # Vérifier que json.dump a été appelé avec les bonnes données et le bon fichier
-        mock_json_dump.assert_called_once_with(mock_tasks, mock_file(), indent=4)
-
     def test_main(self, mock_input, mock_print, mock_load, mock_save):
         # Liste initiale des tâches simulée
         initial_tasks = [
