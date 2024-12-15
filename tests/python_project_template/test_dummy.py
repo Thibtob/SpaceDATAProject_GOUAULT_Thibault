@@ -190,7 +190,7 @@ def test_complete_task_already_completed(mock_save, mock_tasks):
 # Test de save_tasks
 @patch("builtins.open", new_callable=mock_open)
 @patch("json.dump")
-def test_save_tasks(mock_json_dump, mock_file):
+def test_save_tasks(mock_json_dump, mock_file, *args):
     # Exemple de tâches
     mock_tasks = [
         {"name": "Task 1", "completed": False},
