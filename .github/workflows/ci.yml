@@ -28,7 +28,9 @@ jobs:
           pdm install
 
       - name: Run lint checks (Ruff)
-        run: pdm run ruff .
+        run: |
+      pdm install
+      pdm run ruff src tests
 
       - name: Check formatting (Black)
         run: pdm run black --check .
