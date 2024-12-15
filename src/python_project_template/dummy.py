@@ -4,9 +4,13 @@ Task management module.
 This module provides functionality to add, list, mark as completed,
 and delete tasks, with storage in a JSON file.
 """
-
 import json
 import os
+
+
+def dummy() -> str:
+    return "dummy"
+
 
 # Path to the file where tasks are stored
 TASKS_FILE = "tasks.json"
@@ -140,6 +144,7 @@ def main():
         if choice == "1":
             task_name = input("Enter the name of the task: ")
             add_task(tasks, task_name)
+            list_tasks(tasks)
         elif choice == "2":
             list_tasks(tasks)
         elif choice == "3":
