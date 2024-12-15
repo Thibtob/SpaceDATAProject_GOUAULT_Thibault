@@ -16,8 +16,9 @@ license = {text = "MIT"}
 
 
 [tool.ruff]
-line-length = 88
-exclude = ["venv", ".venv", "build", "dist"]
+target-version = "py310"  # Python 3.10 ou version utilisée
+select = ["E", "F", "W"]  # Codes de contrôle
+exclude = ["docs", "tests", "venv"]  # Répertoires exclus
 
 
 [tool.pdm]
