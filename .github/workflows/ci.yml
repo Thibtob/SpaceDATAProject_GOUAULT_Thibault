@@ -35,12 +35,12 @@ jobs:
           pip install coverage-badge
           coverage-badge -o coverage.svg -f
 
-      - name: Commit and push coverage badge
-        if: ${{ github.event_name == 'push' }}
+      - name: Push coverage badge
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          mv coverage.svg docs/coverage.svg
+          git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/${{ github.repository }}.git
           git add docs/coverage.svg
           git commit -m "Update coverage badge"
-          git push
+          git push origin main
+
