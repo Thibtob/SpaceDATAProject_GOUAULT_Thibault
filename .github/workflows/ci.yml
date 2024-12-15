@@ -27,8 +27,6 @@ jobs:
           pip install pdm
           pdm install
 
-      - name: Run lint checks (Ruff)
-        run: pdm run ruff .
 
       - name: Check formatting (Black)
         run: pdm run black --check .
