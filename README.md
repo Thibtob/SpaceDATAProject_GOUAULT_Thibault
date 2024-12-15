@@ -78,3 +78,4 @@ source .venv/bin/activate  # For Linux/MacOS
 python dummy.py
 ```
 
+![CI Status](https://github.com/thibtob/SpaceDATAProject_GOUAULT_Thibault/actions/workflows/ci.yml/badge.svg)
