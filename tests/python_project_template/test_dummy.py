@@ -186,23 +186,35 @@ def test_complete_task_already_completed(mock_save, mock_tasks):
 )
 
 
+# Fixture pour mocker 'open'
+@pytest.fixture
+def mock_file():
+    with patch("builtins.open", mock_open()) as mock:
+        yield mock
+
+
+# Fixture pour mocker 'json.dump'
+@pytest.fixture
+def mock_json_dump():
+    with patch("json.dump") as mock:
+        yield mock
+
+
 # Test de save_tasks
-@patch("builtins.open", new_callable=mock_open)
-@patch("json.dump")
-def test_save_tasks(mock_json_dump, mock_file, *args):
+def test_save_tasks(mock_file, mock_json_dump):
     # Exemple de tâches
     mock_tasks = [
         {"name": "Task 1", "completed": False},
         {"name": "Task 2", "completed": True},
     ]
 
-    # Appel de la fonction save_tasks
+    # Appel de la fonction save_tasks avec les mocks
     save_tasks(mock_tasks)
 
-    # Vérifier que le fichier est bien ouvert en mode écriture
+    # Vérifier que open a bien été appelé une fois avec TASKS_FILE et "w"
     mock_file.assert_called_once_with(TASKS_FILE, "w")
 
-    # Vérifier que json.dump a été appelé avec les bonnes données et le bon fichier
+    # Vérifier que json.dump a bien été appelé avec les bonnes données et le bon fichier
     mock_json_dump.assert_called_once_with(mock_tasks, mock_file(), indent=4)
 
 
